@@ -20,7 +20,7 @@ args = parser.parse_args()
 movie_id = args.movie_id
 max_page = args.max_page
 cookie_location = args.cookie_location
-csv_dir = r"args.csv_dir"
+csv_dir = args.csv_dir
 
 wandb.init(project='douban_short_comment_crawler',config = args,reinit=True)
 wandb.log({'movie_id': movie_id, 'csv_dir': csv_dir})
@@ -131,7 +131,7 @@ def get_short(v_movie_id):
 				}
 			)
 
-			result_file = 'doubanMovie__{}_{}_{}pages.csv'.format(url_type,v_movie_id, max_page)
+			result_file = 'doubanMovie_{}_{}_{}pages.csv'.format(url_type,v_movie_id, max_page)
 			# set header
 			if os.path.exists(result_file):
 				header = False
@@ -139,8 +139,8 @@ def get_short(v_movie_id):
 				header = True
 			# save to csv
 			
-			df.to_csv(csv_dir+result_file, mode='a+', header=header, index=False, encoding='utf_8_sig')
-			print('file saved successfully', result_file)
+			df.to_csv(csv_dir+"/"+result_file, mode='a+', header=header, index=False, encoding='utf_8_sig')
+			print('file saved successfully at {}{}'.format(csv_dir, result_file))
 			# use wannd to log csv file name and save time
 			wandb.log({url_type: result_file})
 			wandb.log({url_type+'_saved_time': pd.Timestamp.now()})
