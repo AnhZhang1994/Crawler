@@ -8,7 +8,7 @@ from time import sleep
 from random import randint
 import sys
 import argparse
-
+import wandb
 
 parser = argparse.ArgumentParser(description='douban short comment crwaler arguments')
 parser.add_argument('--movie_id', type=str, help='movie id of the movie you wanna crawl')
@@ -20,8 +20,10 @@ args = parser.parse_args()
 movie_id = args.movie_id
 max_page = args.max_page
 cookie_location = args.cookie_location
-csv_dir = args.csv_dir
+csv_dir = r"args.csv_dir"
 
+wandb.init(project='douban_short_comment_crawler',config = args,reinit=True)
+wandb.log({'movie_id': movie_id, 'csv_dir': csv_dir})
 
 # Read the login cookie from a text file
 with open(cookie_location, 'r') as f:
@@ -137,15 +139,19 @@ def get_short(v_movie_id):
 				header = True
 			# save to csv
 			
-			df.to_csv(result_file, mode='a+', header=header, index=False, encoding='utf_8_sig')
+			df.to_csv(csv_dir+result_file, mode='a+', header=header, index=False, encoding='utf_8_sig')
 			print('file saved successfully', result_file)
+			# use wannd to log csv file name and save time
+			wandb.log({url_type: result_file})
+			wandb.log({url_type+'_saved_time': pd.Timestamp.now()})
+
 
 
 if __name__ == '__main__':
 	
-	movie_id = '35144311'
+	#movie_id = '35144311'
 	# max page for crawling
-	max_page = 30 
+	#max_page = 30 
 	# result file name
 	#result_file = 'doubanMovie_{}_{}pages.csv'.format(movie_id, max_page)
 	# delete file if exists
