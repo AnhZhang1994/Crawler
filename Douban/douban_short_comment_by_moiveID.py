@@ -84,11 +84,12 @@ def get_short(v_movie_id):
 		for url,url_type in zip(url_list, url_type_list):
 			response = requests.get(url, headers=h1, verify=False)
 			print(response.status_code)
+			
 			# parse html
 			soup = BeautifulSoup(response.text, 'html.parser')
 			# all comments
 			reviews = soup.find_all('div', {'class': 'comment'})
-			print('crawl page {} at {}, {} comments in total'.format(page, url_type, len(reviews)))
+			print('crawl movie {} page {} at {}, {} comments in total'.format(movie_id, page, url_type, len(reviews)))
 			sleep(randint(15,200))
 			# empty list for saving
 			user_name_list = []  # user alias
