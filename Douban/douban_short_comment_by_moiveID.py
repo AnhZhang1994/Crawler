@@ -88,7 +88,7 @@ def get_short(v_movie_id):
 			soup = BeautifulSoup(response.text, 'html.parser')
 			# all comments
 			reviews = soup.find_all('div', {'class': 'comment'})
-			print('crawl page {} and {} comments in total'.format(page, len(reviews)))
+			print('crawl page {} at {}, {} comments in total'.format(page, url_type, len(reviews)))
 			sleep(randint(15,200))
 			# empty list for saving
 			user_name_list = []  # user alias
