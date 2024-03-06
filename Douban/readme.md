@@ -16,5 +16,9 @@ python douban_short_comment_by_moiveID.py --movie_id <movie_id> --max_page <how 
 ```
 
 ## Comments Aggregation
+Run the following command to aggregate the crawled comment csv files into 2 csv files (watched and wanna watch):
 
+```python
+python douban_short_comment_by_moiveID_agg.py --csv_dir <the folder's directory where you wanna save the  crawled comments> --agg_csv_dir <the folder's directory where you wanna save the  aggregated comments>
+```
 
