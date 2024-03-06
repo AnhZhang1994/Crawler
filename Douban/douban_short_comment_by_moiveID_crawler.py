@@ -20,7 +20,7 @@ parser.add_argument(
     "--cookie_location", type=str, help="cookie location of the login information"
 )
 parser.add_argument(
-    "--csv_dir", type=str, help="csv file directory to save the comments"
+    "--csv_dir", type=str, help="the directory of the csv files of short comments"
 )
 args = parser.parse_args()
 
@@ -149,6 +149,7 @@ def get_short(v_movie_id: str) -> None:
                     movie_id, page, url_type, len(reviews)
                 )
             )
+            # random sleep for anti-anti-crawler, you can set the sleep time as you like
             sleep(randint(15, 200))
             # empty list for saving
             user_name_list = []  # user alias
