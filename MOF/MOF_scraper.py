@@ -149,6 +149,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     download_data(
+        id=args.id,
+        pw=args.pw,
         start_year_int=args.start_year_int,
         start_month=args.start_month,
         end_year_int=args.end_year_int,
